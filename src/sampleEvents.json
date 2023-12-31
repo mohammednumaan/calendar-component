@@ -1,0 +1,16 @@
+[
+    {
+        "id" : 1,
+        "title" : "Event 1",
+        "desc" : "This a sample Event!",
+        "start" : "2023-12-31"
+    },
+
+    {
+        "id" : 2,
+        "title" : "Event 2",
+        "desc" : "This an another sample Event!",
+        "start" : "2023-12-25"
+
+    }
+]
