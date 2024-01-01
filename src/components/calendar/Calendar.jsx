@@ -9,6 +9,7 @@ import listPlugin from '@fullcalendar/list';
 
 import { useEffect, useRef, useState } from 'react';
 import fetchEvents from './utilities';
+import CalendarHeader from '../calendar-header/CalendarHeader';
 
 // calendar component 
 
@@ -28,28 +29,29 @@ export default function Calendar(){
 
 
     return (
+        <>
+            <CalendarHeader calendarRef={calendarRef} />
+            <FullCalendar
 
-        <FullCalendar
+                // initial calendar setup
+                ref={calendarRef}
+                plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
+                initialView={'dayGridMonth'}
+                contentHeight={window.innerWidth <= '600px' ? '100vh' : '85vh'}
+                dayHeaderFormat={{weekday : 'short'}}
 
-            // initial calendar setup
-            ref={calendarRef}
-            plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
-            initialView={'dayGridMonth'}
-            contentHeight={window.innerWidth <= '600px' ? '100vh' : '85vh'}
-            dayHeaderFormat={{weekday : 'short'}}
-
-            // navigation and buttons            
-            headerToolbar={{start : 'today prevYear,prev,next,nextYear', center : 'title', end : 'dayGridMonth,dayGridWeek,timeGridDay,listEvents'}}
-            customButtons={
-                {listEvents : {text : 'events', click : () => calendarRef.current.calendar.changeView('listMonth')}}
-            }
+                // navigation and buttons            
+                headerToolbar={{start : 'today prevYear,prev,next,nextYear', center : 'title', end : 'dayGridMonth,dayGridWeek,timeGridDay,listEvents'}}
+                customButtons={
+                    {listEvents : {text : 'events', click : () => calendarRef.current.calendar.changeView('listMonth')}}
+                }
 
 
-            // events
-            events={userEvents}
-        >
+                // events
+                events={userEvents}
+            >
 
-        </FullCalendar>
-
+            </FullCalendar>
+        </>
     )
 }
