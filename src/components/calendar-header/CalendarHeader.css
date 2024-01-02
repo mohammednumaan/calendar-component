@@ -1,0 +1,7 @@
+.header-container{
+    
+    display: flex;
+    position: absolute;
+    gap: 20px;
+   
+}

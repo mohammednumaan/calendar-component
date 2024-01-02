@@ -1,5 +1,5 @@
 // import
-import './Calendar.module.css'
+import './Calendar.css'
 import FullCalendar from '@fullcalendar/react'
 import daygridPlugin from "@fullcalendar/daygrid";
 import timegridPlugin from "@fullcalendar/timegrid";
@@ -41,7 +41,7 @@ export default function Calendar(){
                 dayHeaderFormat={{weekday : 'short'}}
 
                 // navigation and buttons            
-                headerToolbar={{start : 'today prevYear,prev,next,nextYear', center : 'title', end : 'dayGridMonth,dayGridWeek,timeGridDay,listEvents'}}
+                headerToolbar={{start : '', center : 'title', end : 'dayGridMonth,dayGridWeek,timeGridDay,listEvents'}}
                 customButtons={
                     {listEvents : {text : 'events', click : () => calendarRef.current.calendar.changeView('listMonth')}}
                 }
