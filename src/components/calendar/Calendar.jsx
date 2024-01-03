@@ -29,29 +29,27 @@ export default function Calendar(){
 
 
     return (
-        <>
-            <CalendarHeader calendarRef={calendarRef} />
-            <FullCalendar
+        <>  
+            <div className='calendar-container'>
+                <CalendarHeader calendarRef={calendarRef} />
+                <FullCalendar
 
-                // initial calendar setup
-                ref={calendarRef}
-                plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
-                initialView={'dayGridMonth'}
-                contentHeight={window.innerWidth <= '600px' ? '100vh' : '85vh'}
-                dayHeaderFormat={{weekday : 'short'}}
+                    // initial calendar setup
+                    ref={calendarRef}
+                    plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
+                    initialView={'dayGridMonth'}
+                    contentHeight={window.innerWidth <= '600px' ? '100vh' : '85vh'}
+                    dayHeaderFormat={{weekday : 'short'}}
+                    headerToolbar={false}
+                    windowResize={true}
+                    expandRows={true}
 
-                // navigation and buttons            
-                headerToolbar={{start : '', center : 'title', end : 'dayGridMonth,dayGridWeek,timeGridDay,listEvents'}}
-                customButtons={
-                    {listEvents : {text : 'events', click : () => calendarRef.current.calendar.changeView('listMonth')}}
-                }
+                    // events
+                    events={userEvents}
+                >
 
-
-                // events
-                events={userEvents}
-            >
-
-            </FullCalendar>
+                </FullCalendar>
+            </div>            
         </>
     )
 }

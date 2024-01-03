@@ -1,13 +1,31 @@
 .header-container{
     
     display: flex;
-    position: absolute;
-    gap: 20px;
-   
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
-#nextMonth:hover,
-#prevMonth:hover,
-#today:hover{
+.calendar-title{
+    margin-right: 100px;
+}
+
+.header-left,
+.header-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#next:hover,
+#prev:hover,
+#today:hover,
+#month:hover,
+#week:hover,
+#day:hover,
+#events:hover{
     background-color: #1e2b37;
 }
+
+
