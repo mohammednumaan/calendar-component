@@ -32,6 +32,8 @@ export default function CalendarHeader({calendarRef}){
                 size="small"
                 variant="outlined"
                 onClick={() => handleDateChange('today')}
+                sx={{backgroundColor : '#2c3e50', color : 'white', textTransform : 'capitalize', fontSize : '1em'}}
+
             >
                 Today
             </Button>
@@ -42,6 +44,8 @@ export default function CalendarHeader({calendarRef}){
                 size="small"
                 variant="outlined"
                 onClick={() => handleDateChange('prev')}
+                sx={{backgroundColor : '#2c3e50', color : 'white'}}
+
             >
                 <ChevronLeft />
             </Button>
@@ -52,14 +56,16 @@ export default function CalendarHeader({calendarRef}){
                 size="small"
                 variant="outlined"
                 onClick={() => handleDateChange('next')}
+                sx={{backgroundColor : '#2c3e50', color : 'white'}}
+                
             >
                 <ChevronRight />
             </Button>
 
             <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DatePicker
+                className='filter-date'
                 format="MMMM YYYY"
-                className="date-picker"
                 slotProps={{ textField : {size : "small"}}}
                 onChange={(newValue) => {
                     calendarRef.current?.getApi().gotoDate(newValue?.toDate())
@@ -67,7 +73,7 @@ export default function CalendarHeader({calendarRef}){
                 }}
                 value={date}
                 sx={
-                    {width : '200px'}
+                    {width : '200px', border : '1px solid #2c3e50', borderRadius : '4px', color : '#1976d2', outline: 'none'}
                 }
             />
             </LocalizationProvider>

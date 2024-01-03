@@ -1,3 +1,7 @@
 .fc .fc-toolbar-title{
     margin-left: 240px;
 }
+
+.fc-direction-ltr .fc-button-group > .fc-button{
+    text-transform:capitalize;
+}

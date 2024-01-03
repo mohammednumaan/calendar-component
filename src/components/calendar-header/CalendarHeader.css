@@ -5,3 +5,9 @@
     gap: 20px;
    
 }
+
+#nextMonth:hover,
+#prevMonth:hover,
+#today:hover{
+    background-color: #1e2b37;
+}
