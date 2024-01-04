@@ -28,4 +28,17 @@
     background-color: #1e2b37;
 }
 
+.fc .fc-event-main .fc-event-title {
+    padding: 0.3rem;
+    display: block;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.7rem;
+    font-family: sans-serif;
+    background-color:#0F9D58;
+  }
+
 

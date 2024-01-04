@@ -1,5 +1,5 @@
 // IMPORTS
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -9,7 +9,7 @@ import moment from "moment";
 import './CalendarHeader.css'
 
 // CALENDAR HEADER COMPONENT
-export default function CalendarHeader({calendarRef}){
+export default function CalendarHeader({calendarRef, title}){
     
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
 
@@ -23,6 +23,13 @@ export default function CalendarHeader({calendarRef}){
 
         setDate(moment(calApi.getDate()))
     }
+
+    useEffect(() => {
+        const calApi = calendarRef.current?.getApi();
+        setDate(moment(calApi.getDate()))
+        console.log('changed')
+
+    }, [calendarRef])
 
     return (
 
@@ -48,7 +55,7 @@ export default function CalendarHeader({calendarRef}){
                 />
                 </LocalizationProvider>
             </div>  
-            <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
+            <h1 className="calendar-title">{title}</h1>
             <div className="header-right">
                 <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} />
                 <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} />
