@@ -1,5 +1,5 @@
 // import
-import events from '/home/numaan/calendar-final-build/calendar-component/src/sampleEvents.json'
+import events from '/src/sampleEvents.json'
 
 // fetching data from database in json format 
 // the fetched data must be an array of objects
