@@ -6,8 +6,8 @@ import { DateButton, ViewButton } from "./SubComponents";
 import moment from "moment";
 import PropTypes from 'prop-types';
 import './CalendarHeader.css'
-import MobileMenu from "../menu/Menu";
 import { IconButton } from "@mui/material";
+import Sidebar from "../menu/Drawer";
 
 // CALENDAR HEADER COMPONENT
 export default function CalendarHeader({screenSize, calendarRef, currDate, setNewDate, setNewTitle}){
@@ -70,9 +70,9 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
             
             {/* right side of the calendar navigation (renders conditionally */}
 
-            {screenSize < 500 ? (
+            {screenSize < 600 ? (
                 <div className="header-right-mobile">
-                    <MobileMenu calendarRef={calendarRef} newTitle={setNewTitle} />   
+                    <Sidebar calendarRef={calendarRef} newTitle={setNewTitle} />
                 </div>
             ) : (
                 <div className="header-right">

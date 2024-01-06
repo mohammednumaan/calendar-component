@@ -1,3 +1,4 @@
+/* header container and its elements styling */
 .header-container{
     
     display: flex;
@@ -6,16 +7,16 @@
     
 }
 
-.calendar-title{
-    margin-right: 100px;
-}
-
 .header-left,
 .header-right{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.calendar-title{
+    margin-right: 100px;
 }
 
 #next:hover,
@@ -27,6 +28,9 @@
 #events:hover{
     background-color: #1e2b37;
 }
+
+
+/* calendar event's styling */
 
 .fc .fc-event-main .fc-event-title {
     padding: 0.3rem;

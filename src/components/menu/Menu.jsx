@@ -7,6 +7,7 @@ import { useState } from "react";
 
 // mobile menu component
 export default function MobileMenu({calendarRef, newTitle}){
+    
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);

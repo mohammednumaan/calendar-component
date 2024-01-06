@@ -1,12 +1,4 @@
-.fc .fc-toolbar-title{
-    margin-left: 240px;
-}
-
-.fc-direction-ltr .fc-button-group > .fc-button{
-    text-transform:capitalize;
-}
-
-@media screen and (min-width : 360px) and (max-width : 500px) {
+@media screen and (min-width : 360px) and (max-width : 600px) {
 
     .fc.fc-media-screen{
         margin-top: 80px;
@@ -59,11 +51,10 @@
         margin-right: 0px;
     }
 
-    #options-btn{
+    #options{
         position: absolute;
         top: 48px;
-        left: 20px;
-        min-width: 86px;
+        left: 5px;
         text-transform: capitalize;
     }
     

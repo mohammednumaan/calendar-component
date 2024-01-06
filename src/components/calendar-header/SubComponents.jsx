@@ -1,5 +1,6 @@
 // IMPORTS
 import { Button } from "@mui/material";
+import PropTypes from 'prop-types';
 
 // BUTTON COMPONENTS
 function ViewButton({calendarRef, id, option}){
@@ -29,11 +30,24 @@ function DateButton({id, clickFunc, children}){
             sx ={
                 {backgroundColor : '#2c3e50', color : 'white',textTransform: 'capitalize'}
             }
-        
         >
             {children}
         </Button>
     )
+}
+
+
+// props types validation
+ViewButton.propTypes = {
+    calendarRef : PropTypes.object,
+    id : PropTypes.string,
+    option : PropTypes.string
+}
+
+DateButton.propTypes = {
+    id : PropTypes.string,
+    clickFunc : PropTypes.func,
+    children : PropTypes.oneOfType([PropTypes.string, PropTypes.element])
 }
 
 
