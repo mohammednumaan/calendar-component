@@ -1,7 +1,49 @@
+.fc.fc-media-screen{
+    margin-top: 120px;
+}
+
 .fc .fc-toolbar-title{
     margin-left: 240px;
 }
 
 .fc-direction-ltr .fc-button-group > .fc-button{
     text-transform:capitalize;
+}
+
+@media screen and (max-width : 786px) {
+
+    .header-container{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: small;
+        top: 14px;
+    }
+
+    .calendar-title{
+        position: relative;
+        left: 100px;
+    }
+
+    .header-left{
+        position: absolute;
+        top: 70px;
+    }
+
+    .filter-date{
+        left: 5px;
+    }   
+    #today{
+        margin-right: 10px;
+    }
+
+    #options-btn{
+        position: absolute;
+        top: 72px;
+        left: 298px;
+        text-transform: capitalize;
+    }
+    
 }

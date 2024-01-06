@@ -23,7 +23,7 @@ function DateButton({id, clickFunc, children}){
     return (
         <Button
             id={id}
-            size="small"
+            size="medium"
             variant="outlined"
             onClick={clickFunc}
             sx ={

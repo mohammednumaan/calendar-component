@@ -34,14 +34,14 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
 
             <div className="header-left">
                 <DateButton id={'today'} clickFunc={() => handleDateChange('today')}>{'today'}</DateButton>
-                <DateButton id={'prev'} clickFunc={() => handleDateChange('prev')}><ChevronLeft /></DateButton>
-                <DateButton id={'next'} clickFunc={() => handleDateChange('next')}><ChevronRight /></DateButton>
+                {screenSize > 786 && <DateButton id={'prev'} clickFunc={() => handleDateChange('prev')}><ChevronLeft /></DateButton>}
+                {screenSize > 786 && <DateButton id={'next'} clickFunc={() => handleDateChange('next')}><ChevronRight /></DateButton>}
 
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DatePicker
                     className='filter-date'
                     format="MMMM YYYY"
-                    slotProps={{ textField : {size : "small"}}}
+                    slotProps={{ textField : {size : 'small'}}}
                     onChange={(newValue) => {
                         calendarRef.current?.getApi().gotoDate(newValue?.toDate())
                         setNewTitle(calendarRef.current?.getApi().view.title)
@@ -49,7 +49,7 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
                     }}
                     value={currDate}
                     sx={
-                        {width : '190px', border : '1px solid #2c3e50', borderRadius : '4px', color : '#1976d2', outline: 'none'}
+                        {width : '170px', border : '1px solid #2c3e50', borderRadius : '4px', color : '#1976d2', outline: 'none'}
                     }
                 />
                 </LocalizationProvider>

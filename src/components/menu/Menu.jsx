@@ -21,17 +21,18 @@ export default function MobileMenu({calendarRef}){
     return (
         <>
             <Button
-                id="demo-customized-button"
+                id="options-btn"
                 aria-controls={open ? 'demo-customized-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 variant="contained"
+                size="medium"
                 disableElevation
                 
                 onClick={handleClick}
                 endIcon={<KeyboardArrowDown />}
             >
-                View Options
+                View
             </Button>
             <Menu
                 elevation={0}

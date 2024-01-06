@@ -63,7 +63,7 @@ export default function Calendar(){
 
     return (
         <>  
-            <h1>{width}</h1>
+            {/* <h1>{width}</h1> */}
             <CalendarHeader screenSize={width} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
             <div {...handlers} >
                 <FullCalendar
@@ -72,7 +72,8 @@ export default function Calendar(){
 
                     plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                     initialView={'dayGridMonth'}
-                    contentHeight={window.innerWidth <= '600px' ? '100vh' : '85vh'}
+                    aspectRatio={width <= 786 ? 2.8 : 2.8}
+                    contentHeight={width <= 786 ? '100vh' :'78vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
                     windowResize={true}
