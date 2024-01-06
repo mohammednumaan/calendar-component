@@ -21,6 +21,7 @@ export default function Calendar(){
     const [userEvents, setUserEvents] = useState(null);
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
     const [title, setTitle] = useState(calendarRef.current?.calendar.view.title)
+    const [width, setWidth] = useState(window.innerWidth);
 
     // get events data on initial render by fetching data from the database
     useEffect(() => {
@@ -30,6 +31,18 @@ export default function Calendar(){
         })();
         
     },[])
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWidth(window.innerWidth);
+          };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+          window.removeEventListener('resize', handleWindowResize);
+        };
+    }, [])
 
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
@@ -50,7 +63,8 @@ export default function Calendar(){
 
     return (
         <>  
-            <CalendarHeader calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
+            <h1>{width}</h1>
+            <CalendarHeader screenSize={width} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
             <div {...handlers} >
                 <FullCalendar
                     // initial calendar setup

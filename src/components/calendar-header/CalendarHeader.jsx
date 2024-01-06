@@ -6,9 +6,11 @@ import { DateButton, ViewButton } from "./SubComponents";
 import moment from "moment";
 import PropTypes from 'prop-types';
 import './CalendarHeader.css'
+import MobileMenu from "../menu/Menu";
 
 // CALENDAR HEADER COMPONENT
-export default function CalendarHeader({calendarRef, currDate, setNewDate, setNewTitle}){
+export default function CalendarHeader({screenSize, calendarRef, currDate, setNewDate, setNewTitle}){
+    
     
     // handles any kind of date change 
     const handleDateChange = (direction) => {
@@ -24,10 +26,12 @@ export default function CalendarHeader({calendarRef, currDate, setNewDate, setNe
 
     }
 
+
+
     return (
 
         <div className="header-container">
-            {/* left side of the calendar navigation */}
+
             <div className="header-left">
                 <DateButton id={'today'} clickFunc={() => handleDateChange('today')}>{'today'}</DateButton>
                 <DateButton id={'prev'} clickFunc={() => handleDateChange('prev')}><ChevronLeft /></DateButton>
@@ -55,12 +59,18 @@ export default function CalendarHeader({calendarRef, currDate, setNewDate, setNe
             <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
             
             {/* right side of the calendar navigation */}
-            <div className="header-right">
-                <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} />
-                <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} />
-                <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} />
-                <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} />
-            </div>
+            {screenSize <= 786 ? (
+                <div className="header-right-mobile">
+                    <MobileMenu calendarRef={calendarRef} />   
+                </div>
+            ) : (
+                <div className="header-right">
+                    <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} />
+                    <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} />
+                    <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} />
+                    <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} />
+                </div>
+            )}
 
         </div>        
     )
