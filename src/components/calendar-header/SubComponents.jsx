@@ -27,7 +27,7 @@ function DateButton({id, clickFunc, children}){
             variant="outlined"
             onClick={clickFunc}
             sx ={
-                    {backgroundColor : '#2c3e50', color : 'white',textTransform: 'capitalize'}
+                {backgroundColor : '#2c3e50', color : 'white',textTransform: 'capitalize'}
             }
         
         >
@@ -35,5 +35,6 @@ function DateButton({id, clickFunc, children}){
         </Button>
     )
 }
+
 
 export {ViewButton, DateButton}

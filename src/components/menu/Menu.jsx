@@ -1,12 +1,12 @@
 // NOTE : THIS COMPONENT 'TRIGGERS' ONLY ON MOBILE DEVICES/DEVICES WITH SMALL SCREEN WIDTH FOR EASIER ACCESSIBILITY
-
-import { KeyboardArrowDown } from "@mui/icons-material";
+// imports
+import { CalendarViewDay, CalendarViewMonth, CalendarViewWeek, KeyboardArrowDown, ViewList } from "@mui/icons-material";
 import { Button, Menu, MenuItem } from "@mui/material";
+import PropTypes from 'prop-types';
 import { useState } from "react";
 
-
-
-export default function MobileMenu({calendarRef}){
+// mobile menu component
+export default function MobileMenu({calendarRef, newTitle}){
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -18,8 +18,17 @@ export default function MobileMenu({calendarRef}){
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleViewChange = (view) => {
+        const calApi = calendarRef.current?.getApi()
+        if (calApi){
+            calApi.changeView(view)
+            newTitle(calApi.view.title)
+        }
+    }
+
     return (
-        <>
+        <>  
             <Button
                 id="options-btn"
                 aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -34,6 +43,8 @@ export default function MobileMenu({calendarRef}){
             >
                 View
             </Button>
+
+            {/* menu options */}
             <Menu
                 elevation={0}
                 anchorOrigin={{
@@ -51,20 +62,46 @@ export default function MobileMenu({calendarRef}){
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => calendarRef.current?.getApi().changeView('dayGridMonth')} disableRipple>
+                <MenuItem onClick={() => {
+                    handleViewChange('dayGridMonth')
+                    handleClose()
+
+                }} disableRipple>
+                    <CalendarViewMonth sx={{color : '#1e2b37'}} />
                     Month
                 </MenuItem>
-                <MenuItem onClick={() => calendarRef.current?.getApi().changeView('dayGridWeek')} disableRipple>
+                <MenuItem onClick={() => {
+                    handleViewChange('dayGridWeek')
+                    handleClose()
+
+                }} disableRipple>
+                    <CalendarViewWeek sx={{color : '#1e2b37'}} />
                     Week
                 </MenuItem>
-                <MenuItem onClick={() => calendarRef.current?.getApi().changeView('timeGridDay')} disableRipple>
+                <MenuItem onClick={() => {
+                    handleViewChange('timeGridDay')
+                    handleClose()
+
+                }} disableRipple>
+                    <CalendarViewDay sx={{color : '#1e2b37'}} />
                     Day
                 </MenuItem>
-                <MenuItem onClick={() => calendarRef.current?.getApi().changeView('listMonth')} disableRipple>
+                <MenuItem onClick={() => {
+                    handleViewChange('listMonth')
+                    handleClose()
+
+                }} disableRipple>
+                    <ViewList sx={{color : '#1e2b37'}} />
                     Events
                 </MenuItem>
 
             </Menu>      
         </>
     )
+}
+
+// props types validation
+MobileMenu.propTypes = {
+    calendarRef : PropTypes.object,
+    callback : PropTypes.func,
 }

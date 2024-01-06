@@ -35,7 +35,8 @@ export default function Calendar(){
     useEffect(() => {
         const handleWindowResize = () => {
             setWidth(window.innerWidth);
-          };
+        };
+
 
         window.addEventListener('resize', handleWindowResize);
 
@@ -72,12 +73,11 @@ export default function Calendar(){
 
                     plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                     initialView={'dayGridMonth'}
-                    aspectRatio={width <= 786 ? 2.8 : 2.8}
-                    contentHeight={width <= 786 ? '100vh' :'78vh'}
+                    aspectRatio={width <= 600 ? 2.8 : 2.8}
+                    contentHeight={width <= 600 ? '100vh' :'78vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
                     windowResize={true}
-                    expandRows={true}
 
                     // events
                     events={userEvents}
