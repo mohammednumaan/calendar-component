@@ -59,6 +59,7 @@ export default function Calendar(){
             setDate(moment(calendarRef.current?.getApi().getDate()))
 
         },
+        swipeDuration : 250,
     });
 
 
