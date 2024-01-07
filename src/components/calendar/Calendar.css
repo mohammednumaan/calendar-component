@@ -1,8 +1,9 @@
-@media screen and (max-width : 600px) {
+@media screen and (max-width : 1100px) {
 
     .fc-col-header-cell-cushion{
         font-size: 12px;
     }
+
 
     .fc-daygrid-day-top{
         font-size: 10px;
@@ -27,14 +28,12 @@
         gap: 4px;
     }
 
-
     .calendar-title{
         position: relative;
         width: 170px;
         left: -10px;
-        top: -1px;
+        top: 1px;
         font-size: 19px;
-        font-weight: 800;
     }
 
 }

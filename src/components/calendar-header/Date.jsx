@@ -10,7 +10,7 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
-            {screenSize < 600 ? (
+            {screenSize < 1100 ? (
                 <LocalizationProvider dateAdapter={AdapterMoment}>  
                     <DatePicker
                         open={isOpen}

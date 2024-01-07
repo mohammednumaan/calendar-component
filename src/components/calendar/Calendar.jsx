@@ -13,6 +13,7 @@ import CalendarHeader from '../calendar-header/CalendarHeader';
 import { useSwipeable } from 'react-swipeable';
 import moment from 'moment';
 
+
 // calendar component 
 export default function Calendar(){
 
@@ -23,6 +24,7 @@ export default function Calendar(){
     const [title, setTitle] = useState(calendarRef.current?.calendar.view.title)
     const [width, setWidth] = useState(window.innerWidth);
 
+
     // get events data on initial render by fetching data from the database
     useEffect(() => {
            
@@ -32,6 +34,7 @@ export default function Calendar(){
         
     },[])
 
+    // tracks the widow size to change view on devices
     useEffect(() => {
         const handleWindowResize = () => {
             setWidth(window.innerWidth);
@@ -65,23 +68,24 @@ export default function Calendar(){
 
     return (
         <>  
-            {/* <h1>{width}</h1> */}
             <CalendarHeader screenSize={width} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
             <div {...handlers} >
                 <FullCalendar
                     // initial calendar setup
                     ref={calendarRef}
-
                     plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                     initialView={'dayGridMonth'}
-                    aspectRatio={width <= 600 ? 2.8 : 2.8}
-                    contentHeight={width <= 600 ? '100vh' :'78vh'}
+                    aspectRatio={width <= 1100 ? 2.8 : 2.8}
+                    contentHeight={width <= 1100 ? 450 :'80vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
                     windowResize={true}
+               
 
                     // events
                     events={userEvents}
+                    
+
                 >
                 </FullCalendar>
             </div>    

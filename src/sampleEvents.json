@@ -3,14 +3,16 @@
         "id" : 1,
         "title" : "Event 1",
         "desc" : "This a sample Event!",
-        "start" : "2023-12-31"
+        "start" : "2023-12-31",
+        "url" : "https://react.dev"
     },
 
     {
         "id" : 2,
         "title" : "Event 2",
         "desc" : "This an another sample Event!",
-        "start" : "2023-12-25"
+        "start" : "2023-12-25",
+        "url" : "https://react.dev"
 
     }
 ]

@@ -1,9 +1,19 @@
+/* root */
+:root{
+    --fc-today-bg-color: #9bddff;
+}
+
 /* header container and its elements styling */
 .header-container{
     
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    padding: 10px;
+    margin-bottom: 20px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     
 }
 
@@ -30,7 +40,7 @@
 }
 
 
-/* calendar event's styling */
+/* calendar styling */
 
 .fc .fc-event-main .fc-event-title {
     padding: 0.3rem;
@@ -43,6 +53,11 @@
     font-size: 0.7rem;
     font-family: sans-serif;
     background-color:#0F9D58;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.fc .fc-event-main .fc-event-title:hover{
+    background-color: #40826d;
 }
 
 
