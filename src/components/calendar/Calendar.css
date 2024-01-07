@@ -16,6 +16,7 @@
 
     .header-left{
         display: flex;
+        margin-right: -200px;
         margin-left: -14px;
         gap: 4px;
 
@@ -31,6 +32,7 @@
         position: relative;
         width: 170px;
         left: -10px;
+        top: -1px;
         font-size: 19px;
         font-weight: 800;
     }
