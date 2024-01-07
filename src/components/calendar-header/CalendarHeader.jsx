@@ -34,9 +34,8 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
                 {screenSize < 600 && (
                     <>
                         <Sidebar calendarRef={calendarRef} newTitle={setNewTitle} />
-                        <div className="calendar-title-container">
-                            <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
-                        </div>
+                        <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
+      
                     </>     
                 )}
 

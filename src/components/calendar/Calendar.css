@@ -18,11 +18,21 @@
         display: flex;
         margin-left: -14px;
         gap: 4px;
+
     }
 
+    .header-right-mobile{
+        display: flex;
+        gap: 4px;
+    }
+
+
     .calendar-title{
-        /* margin-left: -200px; */
-        font-size: 14px;
+        position: relative;
+        width: 170px;
+        left: -10px;
+        font-size: 19px;
+        font-weight: 800;
     }
 
 }
