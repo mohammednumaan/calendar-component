@@ -12,6 +12,7 @@ import fetchEvents from './DataHandling';
 import CalendarHeader from '../calendar-header/CalendarHeader';
 import { useSwipeable } from 'react-swipeable';
 import moment from 'moment';
+import { Fade, Grow, Slide } from '@mui/material';
 
 
 // calendar component 
@@ -24,6 +25,8 @@ export default function Calendar(){
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
     const [title, setTitle] = useState('')
     const [width, setWidth] = useState(window.innerWidth);
+    const [animate, setAnimate] = useState(true)
+
 
     // get events data on initial render by fetching data from the database
     useEffect(() => {
@@ -55,18 +58,28 @@ export default function Calendar(){
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
         onSwipedLeft : () => {
-            calendarRef.current?.getApi().next()
-            setTitle(calendarRef.current?.getApi().view.title)
-            setDate(moment(calendarRef.current?.getApi().getDate()))
-
+            setAnimate(false)
+            setTimeout(() => {
+                setAnimate(true)
+                calendarRef.current?.getApi().next()
+                setTitle(calendarRef.current?.getApi().view.title)
+                setDate(moment(calendarRef.current?.getApi().getDate()))
+                
+            }, 800)    
         },
         onSwipedRight : () => {
-            calendarRef.current?.getApi().prev()
-            setTitle(calendarRef.current?.getApi().view.title)
-            setDate(moment(calendarRef.current?.getApi().getDate()))
-
+            setAnimate(false)
+            setTimeout(() => {
+                setAnimate(true)
+                calendarRef.current?.getApi().prev()
+                setTitle(calendarRef.current?.getApi().view.title)
+                setDate(moment(calendarRef.current?.getApi().getDate()))
+                
+            }, 800) 
+    
         },
-        swipeDuration : 250,
+
+        swipeDuration : 500,
     });
 
 
@@ -74,21 +87,25 @@ export default function Calendar(){
         <>  
             <CalendarHeader screenSize={width} title={title} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
             <div {...handlers} >
-                <FullCalendar
-                    // initial calendar setup
-                    ref={calendarRef}
-                    plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
-                    initialView={'dayGridMonth'}
-                    aspectRatio={width <= 1100 ? 2.8 : 2.8}
-                    contentHeight={width <= 1100 ? 450 :'80vh'}
-                    dayHeaderFormat={{weekday : 'short'}}
-                    headerToolbar={false}
-               
-                    // events
-                    events={userEvents}
-                >
-                </FullCalendar>
-            </div>    
+                <Fade in={animate} timeout={930} easing={{easeInOut: 'cubic-bezier(0.445, 0.05, 0.55, 0.95)'}} appear={false}>
+                    <div>
+                        <FullCalendar
+                            // initial calendar setup
+                            ref={calendarRef}
+                            plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
+                            initialView={'dayGridMonth'}
+                            aspectRatio={width <= 1100 ? 2.8 : 2.8}
+                            contentHeight={width <= 1100 ? 450 :'80vh'}
+                            dayHeaderFormat={{weekday : 'short'}}
+                            headerToolbar={false}
+                            
+                            // events
+                            events={userEvents}
+                        >
+                        </FullCalendar>
+                    </div>
+                </Fade>
+            </div>   
         </>
     )
 }
