@@ -1,15 +1,27 @@
-// IMPORTS
+// imports
 import { Button } from "@mui/material";
 import PropTypes from 'prop-types';
 
-// BUTTON COMPONENTS
-function ViewButton({calendarRef, id, option}){
+// different button components that can be re-used
+
+// view buttons, primarily used for selecting different views on click
+function ViewButton({calendarRef, id, option, newTitle}){
+
+    const handleViewChange = (view) => {
+        const calApi = calendarRef.current?.getApi()
+
+        if (calApi){
+            calApi.changeView(view)
+            newTitle(calApi.view.title)
+        }
+    }
+
     return (
         <Button 
             id={id}
             size="small"
             variant="outlined"
-            onClick={() => calendarRef.current?.getApi().changeView(option)}
+            onClick={() => handleViewChange(option)}
             sx ={
 
                 {backgroundColor : '#2c3e50', color : 'white', textTransform: 'capitalize'}
@@ -20,6 +32,7 @@ function ViewButton({calendarRef, id, option}){
     )
 }
 
+// date buttons, primarily used for naviigating different dates/months on click
 function DateButton({id, clickFunc, children}){
     return (
         <Button
@@ -41,14 +54,15 @@ function DateButton({id, clickFunc, children}){
 ViewButton.propTypes = {
     calendarRef : PropTypes.object,
     id : PropTypes.string,
-    option : PropTypes.string
+    option : PropTypes.string,
+    newTitle : PropTypes.func,
 }
 
 DateButton.propTypes = {
     id : PropTypes.string,
     clickFunc : PropTypes.func,
-    children : PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    children : PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 }
 
-
+// exports
 export {ViewButton, DateButton}

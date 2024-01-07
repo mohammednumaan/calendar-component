@@ -1,9 +1,10 @@
-/* root */
+/* ROOT */
+
 :root{
     --fc-today-bg-color: #9bddff;
 }
 
-/* header container and its elements styling */
+/* HEADER CONTAINER AND ITS ELEMENT'S STYLING */
 .header-container{
     
     display: flex;
@@ -40,7 +41,7 @@
 }
 
 
-/* calendar styling */
+/* CALENDAR AN ITS ELEMENT'S STYLING */
 
 .fc .fc-event-main .fc-event-title {
     padding: 0.3rem;

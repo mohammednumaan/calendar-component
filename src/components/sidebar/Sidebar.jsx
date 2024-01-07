@@ -11,9 +11,10 @@ export default function Sidebar({calendarRef, newTitle}){
     // a state to open or close the sidebar
     const [isOpen, setIsOpen] = useState(false)
 
-    // handles any view change
+    // handles any view change upon clicking the listed options
     const handleViewChange = (view) => {
         const calApi = calendarRef.current?.getApi()
+
         if (calApi){
             calApi.changeView(view)
             newTitle(calApi.view.title)
@@ -25,43 +26,34 @@ export default function Sidebar({calendarRef, newTitle}){
             <IconButton id="options" size="large" aria-label="view-options" onClick={() => setIsOpen(true)}>
                 <Menu />
             </IconButton>
+
+            
             <Drawer anchor="left" open={isOpen} onClose={() => setIsOpen(false)}>
                 <Box sx={{width : '180px'}}>
 
                     <List>
-                        <ListItemButton onClick={() => {
-                            handleViewChange('dayGridMonth')
-
-                        }}>
+                        <ListItemButton onClick={() => handleViewChange('dayGridMonth')}>
                             <ListItemIcon>
                                 <CalendarViewMonth />
                             </ListItemIcon>
                             <ListItemText primary="Month" />
                         </ListItemButton>
                         
-                        <ListItemButton onClick={() => {
-                            handleViewChange('dayGridWeek')
-
-                        }}>
+                        <ListItemButton onClick={() => handleViewChange('dayGridWeek')}>
                             <ListItemIcon>
                                 <CalendarViewWeek />
                             </ListItemIcon>
                             <ListItemText primary="Week" />
                         </ListItemButton>
 
-                        <ListItemButton onClick={() => {
-                            handleViewChange('timeGridDay')
-
-                        }}>
+                        <ListItemButton onClick={() => handleViewChange('timeGridDay')}>
                             <ListItemIcon>
                                 <CalendarViewDay />
                             </ListItemIcon>
                             <ListItemText primary="Day" />
                         </ListItemButton>
 
-                        <ListItemButton onClick={() => {
-                            handleViewChange('listMonth')
-                        }}>
+                        <ListItemButton onClick={() => handleViewChange('listMonth')}>
                             <ListItemIcon>
                                 <ViewList />
                             </ListItemIcon>

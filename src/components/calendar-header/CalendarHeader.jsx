@@ -1,14 +1,15 @@
-import { DateButton, ViewButton } from "./SubComponents";
+// imports
+import { DateButton, ViewButton } from "./ButtonComponents";
 import moment from "moment";
 import PropTypes from 'prop-types';
 import './CalendarHeader.css'
 import { IconButton } from "@mui/material";
-import Sidebar from "../sidebar/Drawer";
-import PickDate from "./Date";
+import Sidebar from "../sidebar/Sidebar";
+import PickDate from "./DatePickerComponent";
 import { ChevronLeft, ChevronRight, Today } from "@mui/icons-material";
 
-// CALENDAR HEADER COMPONENT
-export default function CalendarHeader({screenSize, calendarRef, currDate, setNewDate, setNewTitle}){
+// calendar header components
+export default function CalendarHeader({screenSize, title, calendarRef, currDate, setNewDate, setNewTitle}){
     
     // handles any kind of date change 
     const handleDateChange = (direction) => {
@@ -35,7 +36,6 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
                     <>
                         <Sidebar calendarRef={calendarRef} newTitle={setNewTitle} />
                         <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
-      
                     </>     
                 )}
 
@@ -45,16 +45,14 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
                 {screenSize > 1100 && <PickDate calendarRef={calendarRef} setNewTitle={setNewTitle} setNewDate={setNewDate} currDate={currDate} screenSize={screenSize} />}
             </div>  
             
-            {/* displays the current selected month */}
-
+            {/* displays the current selected month/week/day */}
             {screenSize > 1100 && (
                 <div className="calendar-title-container">
-                    <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
+                    <h1 className="calendar-title">{title}</h1>
                 </div>
             )}
             
             {/* right side of the calendar navigation (renders conditionally */}
-
             {screenSize < 1100 ? (
                 <div className="header-right-mobile">
                     <PickDate calendarRef={calendarRef} setNewTitle={setNewTitle} setNewDate={setNewDate} currDate={currDate} screenSize={screenSize} />
@@ -64,12 +62,12 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
                 </div>
             ) : (
                 <div className="header-right">
-                    <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} />
-                    <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} />
-                    <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} />
-                    <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} />
+                    <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} newTitle={setNewTitle} />
+                    <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} newTitle={setNewTitle} />
+                    <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} newTitle={setNewTitle} />
+                    <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} newTitle={setNewTitle} />
                 </div>
-            )}
+            )}  
 
         </div>        
     )
@@ -78,6 +76,7 @@ export default function CalendarHeader({screenSize, calendarRef, currDate, setNe
 // props types validation 
 CalendarHeader.propTypes = {
     screenSize : PropTypes.number,
+    title : PropTypes.string,
     calendarRef : PropTypes.object,
     currDate : PropTypes.object,
     setNewDate : PropTypes.func,

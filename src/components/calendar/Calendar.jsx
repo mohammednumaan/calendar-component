@@ -1,4 +1,4 @@
-// importsd
+// imports
 import './Calendar.css'
 import FullCalendar from '@fullcalendar/react'
 import daygridPlugin from "@fullcalendar/daygrid";
@@ -8,7 +8,7 @@ import multiMonthPlugin from '@fullcalendar/multimonth'
 import listPlugin from '@fullcalendar/list';
 
 import { useEffect, useRef, useState } from 'react';
-import fetchEvents from './utilities';
+import fetchEvents from './DataHandling';
 import CalendarHeader from '../calendar-header/CalendarHeader';
 import { useSwipeable } from 'react-swipeable';
 import moment from 'moment';
@@ -17,17 +17,16 @@ import moment from 'moment';
 // calendar component 
 export default function Calendar(){
 
-    // states
+    // states 
+    // eslint-disanle
     const calendarRef = useRef(null);
     const [userEvents, setUserEvents] = useState(null);
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
-    const [title, setTitle] = useState(calendarRef.current?.calendar.view.title)
+    const [title, setTitle] = useState('')
     const [width, setWidth] = useState(window.innerWidth);
-
 
     // get events data on initial render by fetching data from the database
     useEffect(() => {
-           
         (async function getEvents() {
             fetchEvents(setUserEvents)
         })();
@@ -40,13 +39,18 @@ export default function Calendar(){
             setWidth(window.innerWidth);
         };
 
-
         window.addEventListener('resize', handleWindowResize);
 
+        // cleanup
         return () => {
           window.removeEventListener('resize', handleWindowResize);
         };
     }, [])
+
+    useEffect(() => {
+        const calTitle = calendarRef.current?.getApi().view.title
+        setTitle(calTitle)
+    },[title])
 
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
@@ -68,7 +72,7 @@ export default function Calendar(){
 
     return (
         <>  
-            <CalendarHeader screenSize={width} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
+            <CalendarHeader screenSize={width} title={title} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
             <div {...handlers} >
                 <FullCalendar
                     // initial calendar setup
@@ -79,13 +83,9 @@ export default function Calendar(){
                     contentHeight={width <= 1100 ? 450 :'80vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
-                    windowResize={true}
                
-
                     // events
                     events={userEvents}
-                    
-
                 >
                 </FullCalendar>
             </div>    

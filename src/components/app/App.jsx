@@ -1,10 +1,11 @@
+// imports
 import Calendar from '../calendar/Calendar'
 import './App.css'
 
-function App() {
+// app component that renders the calendar
+export default function App() {
     return (
         <Calendar />
     )
 }
 
-export default App
