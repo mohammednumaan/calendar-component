@@ -1,7 +1,7 @@
 // imports
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './components/app/App.jsx'
+import App from './components/App/App.jsx'
 import './index.css'
 
 // renders the web-app

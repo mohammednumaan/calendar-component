@@ -1,5 +1,5 @@
 // imports
-import Calendar from '../calendar/Calendar'
+import Calendar from '../Calendar/Calendar'
 import './App.css'
 
 // app component that renders the calendar

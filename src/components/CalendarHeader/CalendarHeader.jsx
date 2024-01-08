@@ -1,12 +1,14 @@
 // imports
-import { DateButton, ViewButton } from "./ButtonComponents";
-import moment from "moment";
 import PropTypes from 'prop-types';
 import './CalendarHeader.css'
+
+import { DateButton, ViewButton } from "./SubComponents/ButtonComponents";
+import PickDate from "./SubComponents/DatePickerComponent";
+import Sidebar from "./SubComponents/Sidebar";
+
 import { IconButton } from "@mui/material";
-import Sidebar from "../sidebar/Sidebar";
-import PickDate from "./DatePickerComponent";
 import { ChevronLeft, ChevronRight, Today } from "@mui/icons-material";
+import moment from "moment";
 
 // calendar header components
 export default function CalendarHeader({screenSize, title, calendarRef, currDate, setNewDate, setNewTitle}){
@@ -72,6 +74,7 @@ export default function CalendarHeader({screenSize, title, calendarRef, currDate
         </div>        
     )
 }
+
 
 // props types validation 
 CalendarHeader.propTypes = {

@@ -1,14 +1,14 @@
-// imports
-import { Button } from "@mui/material";
+// imports'
 import PropTypes from 'prop-types';
+import { Button } from "@mui/material";
 
 // different button components that can be re-used
 
 // view buttons, primarily used for selecting different views on click
-function ViewButton({calendarRef, id, option, newTitle}){
+function ViewButton({ref, id, option, newTitle}){
 
     const handleViewChange = (view) => {
-        const calApi = calendarRef.current?.getApi()
+        const calApi = ref.current?.getApi()
 
         if (calApi){
             calApi.changeView(view)
@@ -52,7 +52,7 @@ function DateButton({id, clickFunc, children}){
 
 // props types validation
 ViewButton.propTypes = {
-    calendarRef : PropTypes.object,
+    ref : PropTypes.object,
     id : PropTypes.string,
     option : PropTypes.string,
     newTitle : PropTypes.func,

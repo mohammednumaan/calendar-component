@@ -1,25 +1,25 @@
 // imports
+import { useEffect, useRef, useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import './Calendar.css'
+
 import FullCalendar from '@fullcalendar/react'
 import daygridPlugin from "@fullcalendar/daygrid";
 import timegridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import multiMonthPlugin from '@fullcalendar/multimonth'
+import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from '@fullcalendar/list';
 
-import { useEffect, useRef, useState } from 'react';
+import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import fetchEvents from './DataHandling';
-import CalendarHeader from '../calendar-header/CalendarHeader';
-import { useSwipeable } from 'react-swipeable';
+import { Fade } from '@mui/material';
 import moment from 'moment';
-import { Fade, Grow, Slide } from '@mui/material';
 
 
 // calendar component 
 export default function Calendar(){
 
     // states 
-    // eslint-disanle
     const calendarRef = useRef(null);
     const [userEvents, setUserEvents] = useState(null);
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
@@ -50,6 +50,8 @@ export default function Calendar(){
         };
     }, [])
 
+
+    // get the title from the calendar api's method and display it as soon as its recieved
     useEffect(() => {
         const calTitle = calendarRef.current?.getApi().view.title
         setTitle(calTitle)

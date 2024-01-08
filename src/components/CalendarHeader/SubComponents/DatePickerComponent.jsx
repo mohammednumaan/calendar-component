@@ -1,10 +1,13 @@
 // imports
-import { CalendarMonth } from "@mui/icons-material"
-import { IconButton } from "@mui/material"
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
 import { useState } from "react"
 import PropTypes from 'prop-types';
+
+import { IconButton } from "@mui/material"
+import { CalendarMonth } from "@mui/icons-material"
+
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
+
 
 // custom icon button (defined only once) to only mount once
 const CustomButton = ({isOpen, setIsOpen}) => {
@@ -18,7 +21,7 @@ const CustomButton = ({isOpen, setIsOpen}) => {
 }
 
 // date picker component (conditionally renders)
-export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate, screenSize}){
+export default function PickDate({ref, setNewTitle, setNewDate, currDate, screenSize}){
 
     // state to open and close the date picker
     const [isOpen, setIsOpen] = useState(false)
@@ -39,8 +42,8 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
                         slotProps={{textField : {isOpen, setIsOpen}}}
 
                         onChange={(newValue) => {
-                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(calendarRef.current?.getApi().view.title)
+                            ref.current?.getApi().gotoDate(newValue?.toDate())
+                            setNewTitle(ref.current?.getApi().view.title)
                             setNewDate(newValue)
                         }}
                         value={currDate}
@@ -60,8 +63,8 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
                         slotProps={{textField : {size : 'small'}}}
 
                         onChange={(newValue) => {
-                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(calendarRef.current?.getApi().view.title)
+                            ref.current?.getApi().gotoDate(newValue?.toDate())
+                            setNewTitle(ref.current?.getApi().view.title)
                             setNewDate(newValue)
                         }}
                         value={currDate}
@@ -76,10 +79,11 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
     )
 }
 
+
 // props types validation
 PickDate.propTypes = {
     screenSize : PropTypes.number,
-    calendarRef : PropTypes.object,
+    ref : PropTypes.object,
     currDate : PropTypes.object,
     setNewDate : PropTypes.func,
     setNewTitle : PropTypes.func,

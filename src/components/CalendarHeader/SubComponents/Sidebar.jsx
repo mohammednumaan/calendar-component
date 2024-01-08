@@ -1,26 +1,27 @@
 // NOTE : THIS COMPONENT ONLY TRIGGERS ON DEVICES WITH SMALLER SCREEN SIZES FOR ACCESSIBILTY
 // imports
-import { CalendarViewDay, CalendarViewMonth, CalendarViewWeek, Menu, ViewList } from "@mui/icons-material";
-import { Box, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import PropTypes from 'prop-types';
 import { useState } from "react";
+import PropTypes from 'prop-types';
+
+import { Box, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { CalendarViewDay, CalendarViewMonth, CalendarViewWeek, Menu, ViewList } from "@mui/icons-material";
+
+// handles any view change upon clicking the listed options (defined only once)
+const handleViewChange = (calendarRef, view, newTitle) => {
+    const calApi = calendarRef.current?.getApi()
+
+    if (calApi){
+        calApi.changeView(view)
+        newTitle(calApi.view.title)
+    }
+}
 
 // sidebar component
 export default function Sidebar({calendarRef, newTitle}){
 
     // a state to open or close the sidebar
     const [isOpen, setIsOpen] = useState(false)
-
-    // handles any view change upon clicking the listed options
-    const handleViewChange = (view) => {
-        const calApi = calendarRef.current?.getApi()
-
-        if (calApi){
-            calApi.changeView(view)
-            newTitle(calApi.view.title)
-        }
-    }
-
+    
     return (
         <>  
             <IconButton id="options" size="large" aria-label="view-options" onClick={() => setIsOpen(true)}>
@@ -32,28 +33,28 @@ export default function Sidebar({calendarRef, newTitle}){
                 <Box sx={{width : '180px'}}>
 
                     <List>
-                        <ListItemButton onClick={() => handleViewChange('dayGridMonth')}>
+                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'dayGridMonth', newTitle)}>
                             <ListItemIcon>
                                 <CalendarViewMonth />
                             </ListItemIcon>
                             <ListItemText primary="Month" />
                         </ListItemButton>
                         
-                        <ListItemButton onClick={() => handleViewChange('dayGridWeek')}>
+                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'dayGridWeek', newTitle)}>
                             <ListItemIcon>
                                 <CalendarViewWeek />
                             </ListItemIcon>
                             <ListItemText primary="Week" />
                         </ListItemButton>
 
-                        <ListItemButton onClick={() => handleViewChange('timeGridDay')}>
+                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'timeGridDay', newTitle)}>
                             <ListItemIcon>
                                 <CalendarViewDay />
                             </ListItemIcon>
                             <ListItemText primary="Day" />
                         </ListItemButton>
 
-                        <ListItemButton onClick={() => handleViewChange('listMonth')}>
+                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'listMonth', newTitle)}>
                             <ListItemIcon>
                                 <ViewList />
                             </ListItemIcon>
