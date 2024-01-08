@@ -58,7 +58,7 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
         <Global
           styles={{
             '.MuiDrawer-root > .MuiPaper-root': {
-              height: `calc(${1000} - ${drawerBleeding}px)`,
+              height: `calc(${1000}px)`,
               overflow: 'visible',
             },
           }}
