@@ -9,7 +9,6 @@ import { CalendarViewDay, CalendarViewMonth, CalendarViewWeek, Menu, ViewList } 
 // handles any view change upon clicking the listed options (defined only once)
 const handleViewChange = (calendarRef, view, newTitle) => {
     const calApi = calendarRef.current?.getApi()
-
     if (calApi){
         calApi.changeView(view)
         newTitle(calApi.view.title)

@@ -14,6 +14,7 @@ import CalendarHeader from '../CalendarHeader/CalendarHeader';
 import fetchEvents from './DataHandling';
 import { Fade } from '@mui/material';
 import moment from 'moment';
+import SwipeDrawer from '../CalendarHeader/SubComponents/SwipeableDrawer';
 
 
 // calendar component 
@@ -97,7 +98,7 @@ export default function Calendar(){
                             plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                             initialView={'dayGridMonth'}
                             aspectRatio={width <= 1100 ? 2.8 : 2.8}
-                            contentHeight={width <= 1100 ? 450 :'80vh'}
+                            contentHeight={width <= 1100 ? 600 :'80vh'}
                             dayHeaderFormat={{weekday : 'short'}}
                             headerToolbar={false}
                             
@@ -108,6 +109,7 @@ export default function Calendar(){
                     </div>
                 </Fade>
             </div>   
+            {width <= 1100 && <SwipeDrawer  calendarRef={calendarRef}  />}
         </>
     )
 }
