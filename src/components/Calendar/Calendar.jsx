@@ -98,7 +98,7 @@ export default function Calendar(){
                             plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                             initialView={'dayGridMonth'}
                             aspectRatio={width <= 1100 ? 2.8 : 2.8}
-                            contentHeight={width <= 1100 ? 600 :'80vh'}
+                            contentHeight={width <= 1100 ? '80vh' :'80vh'}
                             dayHeaderFormat={{weekday : 'short'}}
                             headerToolbar={false}
                             
