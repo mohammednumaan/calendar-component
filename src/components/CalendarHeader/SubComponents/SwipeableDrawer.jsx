@@ -45,7 +45,7 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
           const todayEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
           if (JSON.stringify(todayEvents) === JSON.stringify(events)) return;
           setEvents([...todayEvents])
-        }, 1)
+        }, 100)
         
     },[calendarRef, events])
   
