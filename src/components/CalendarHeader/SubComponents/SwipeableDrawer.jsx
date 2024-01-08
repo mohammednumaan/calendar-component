@@ -57,8 +57,8 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
 
         <Global
           styles={{
-            '.MuiDrawer-root > .MuiPaper-root': {
-              height: `calc(${1000}px)`,
+            '.MuiDrawer-root > .MuiDrawer-paperAnchorBottom ': {
+              height: `calc(50% - ${drawerBleeding}px)`,
               overflow: 'visible',
             },
           }}
@@ -77,6 +77,7 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
           }}
         >
           <StyledBox
+            className="swipeableDrawer"
             sx={{
               position: 'absolute',
               top: -drawerBleeding,
@@ -85,6 +86,7 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
               visibility: 'visible',
               right: 0,
               left: 0,
+              
             }}
           >
             <Puller />
