@@ -16,7 +16,7 @@ const CalendarHeader = forwardRef(function CalendarHeader({screenSize, title, cu
     
     // handles any kind of date change 
     const handleDateChange = (direction) => {
-        const calApi = calendarRef.current?.getApi();
+        const calApi = calendarRef.current.getApi();
         if (calApi) {
             (direction === 'prev') ? calApi.prev() : 
             (direction === 'next') ? calApi.next() :
@@ -38,7 +38,7 @@ const CalendarHeader = forwardRef(function CalendarHeader({screenSize, title, cu
                 {screenSize < 1100 && (
                     <>
                         <Sidebar calendarRef={calendarRef} newTitle={setNewTitle} />
-                        <h1 className="calendar-title">{calendarRef.current?.getApi().view.title}</h1>
+                        <h1 className="calendar-title">{title}</h1>
                     </>     
                 )}
 

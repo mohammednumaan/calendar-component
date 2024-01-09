@@ -48,12 +48,14 @@ export default function SwipeableEdgeDrawer({calendarRef}) {
     useEffect(() => {
         const calApi = calendarRef.current?.getApi();
 
+
         // a small timeout to get the events from the api (does not work if u remove setTimeout), the getEvents() method is async
         setTimeout(() => {
           const todayEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
           if (JSON.stringify(todayEvents) === JSON.stringify(events)) return;
           setEvents([...todayEvents])
-        }, 100)
+          console.log('CHANGED')
+        }, 40)
         
     },[calendarRef, events])
   

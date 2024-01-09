@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 function ViewButton({calendarRef, id, option, newTitle}){
 
     const handleViewChange = (view) => {
-        const calApi = calendarRef.current?.getApi()
+        const calApi = calendarRef.current.getApi()
 
         if (calApi){
             calApi.changeView(view)
