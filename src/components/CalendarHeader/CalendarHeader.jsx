@@ -6,12 +6,13 @@ import { DateButton, ViewButton } from "./SubComponents/ButtonComponents";
 import PickDate from "./SubComponents/DatePickerComponent";
 import Sidebar from "./SubComponents/Sidebar";
 
-import { IconButton } from "@mui/material";
+import { ButtonGroup, IconButton } from "@mui/material";
 import { ChevronLeft, ChevronRight, Today } from "@mui/icons-material";
 import moment from "moment";
+import { forwardRef } from 'react';
 
 // calendar header components
-export default function CalendarHeader({screenSize, title, calendarRef, currDate, setNewDate, setNewTitle}){
+const CalendarHeader = forwardRef(function CalendarHeader({screenSize, title, currDate, setNewDate, setNewTitle}, calendarRef){
     
     // handles any kind of date change 
     const handleDateChange = (direction) => {
@@ -23,7 +24,7 @@ export default function CalendarHeader({screenSize, title, calendarRef, currDate
         }
 
         setNewDate(moment(calApi.getDate()))
-        setNewTitle(calendarRef.current?.getApi().view.title)
+        setNewTitle(calApi.view.title)
 
     }
     
@@ -41,47 +42,64 @@ export default function CalendarHeader({screenSize, title, calendarRef, currDate
                     </>     
                 )}
 
-                {screenSize > 1100 && <DateButton id={'today'} clickFunc={() => handleDateChange('today')}>{'today'}</DateButton>}
-                {screenSize > 1100 && <DateButton id={'prev'} clickFunc={() => handleDateChange('prev')}><ChevronLeft /></DateButton>}
-                {screenSize > 1100 && <DateButton id={'next'} clickFunc={() => handleDateChange('next')}><ChevronRight /></DateButton>}
-                {screenSize > 1100 && <PickDate calendarRef={calendarRef} setNewTitle={setNewTitle} setNewDate={setNewDate} currDate={currDate} screenSize={screenSize} />}
+                {screenSize >= 1100 && (
+                    <ButtonGroup variant="solid" aria-label="outlined button group">
+                        <DateButton id={'today'} clickFunc={() => handleDateChange('today')}>{'today'}</DateButton>
+                        <DateButton id={'prev'} clickFunc={() => handleDateChange('prev')}><ChevronLeft /></DateButton>
+                        <DateButton id={'next'} clickFunc={() => handleDateChange('next')}><ChevronRight /></DateButton>
+                        
+                    </ButtonGroup>
+                )}
+                {screenSize >= 1100 && 
+                    <PickDate calendarRef={calendarRef} setNewTitle={setNewTitle} setNewDate={setNewDate} currDate={currDate} screenSize={screenSize} />
+                }
+
             </div>  
             
             {/* displays the current selected month/week/day */}
             {screenSize > 1100 && (
                 <div className="calendar-title-container">
                     <h1 className="calendar-title">{title}</h1>
+                    <hr></hr>
                 </div>
             )}
             
             {/* right side of the calendar navigation (renders conditionally */}
             {screenSize < 1100 ? (
                 <div className="header-right-mobile">
+
                     <PickDate calendarRef={calendarRef} setNewTitle={setNewTitle} setNewDate={setNewDate} currDate={currDate} screenSize={screenSize} />
+
                     <IconButton  id={'today-icon'} onClick={() => handleDateChange('today')}>
-                        <Today sx={{color : '#1e2b37'}} />
+                        <Today sx={{color : '#1976d2'}} />
                     </IconButton>
+
                 </div>
             ) : (
                 <div className="header-right">
-                    <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} newTitle={setNewTitle} />
-                    <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} newTitle={setNewTitle} />
-                    <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} newTitle={setNewTitle} />
-                    <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} newTitle={setNewTitle} />
+
+                    <ButtonGroup variant='solid' aria-label="outlined button group" >
+                        <ViewButton calendarRef={calendarRef} id={'month'} option={'dayGridMonth'} newTitle={setNewTitle} />
+                        <ViewButton calendarRef={calendarRef} id={'week'} option={'dayGridWeek'} newTitle={setNewTitle} />
+                        <ViewButton calendarRef={calendarRef} id={'day'} option={'timeGridDay'} newTitle={setNewTitle} />
+                        <ViewButton calendarRef={calendarRef} id={'events'} option={'listMonth'} newTitle={setNewTitle} />
+                    </ButtonGroup>
+                    
                 </div>
             )}  
 
         </div>        
     )
-}
+})
 
 
 // props types validation 
 CalendarHeader.propTypes = {
     screenSize : PropTypes.number,
     title : PropTypes.string,
-    calendarRef : PropTypes.object,
     currDate : PropTypes.object,
     setNewDate : PropTypes.func,
     setNewTitle : PropTypes.func,
 }
+
+export default CalendarHeader

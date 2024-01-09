@@ -5,10 +5,10 @@ import { Button } from "@mui/material";
 // different button components that can be re-used
 
 // view buttons, primarily used for selecting different views on click
-function ViewButton({ref, id, option, newTitle}){
+function ViewButton({calendarRef, id, option, newTitle}){
 
     const handleViewChange = (view) => {
-        const calApi = ref.current?.getApi()
+        const calApi = calendarRef.current?.getApi()
 
         if (calApi){
             calApi.changeView(view)
@@ -17,14 +17,15 @@ function ViewButton({ref, id, option, newTitle}){
     }
 
     return (
+        // backgroundColor : '#2c3e50', color : 'white', 
         <Button 
             id={id}
-            size="small"
+            size="medium"
             variant="outlined"
             onClick={() => handleViewChange(option)}
             sx ={
 
-                {backgroundColor : '#2c3e50', color : 'white', textTransform: 'capitalize'}
+                {textTransform: 'capitalize'}
             }
         >
             {id}
@@ -36,12 +37,13 @@ function ViewButton({ref, id, option, newTitle}){
 function DateButton({id, clickFunc, children}){
     return (
         <Button
+        // backgroundColor : '#2c3e50', color : 'white', 
             id={id}
             size="medium"
             variant="outlined"
             onClick={clickFunc}
             sx ={
-                {backgroundColor : '#2c3e50', color : 'white',textTransform: 'capitalize'}
+                {textTransform: 'capitalize'}
             }
         >
             {children}
@@ -52,7 +54,7 @@ function DateButton({id, clickFunc, children}){
 
 // props types validation
 ViewButton.propTypes = {
-    ref : PropTypes.object,
+    calendarRef : PropTypes.object,
     id : PropTypes.string,
     option : PropTypes.string,
     newTitle : PropTypes.func,

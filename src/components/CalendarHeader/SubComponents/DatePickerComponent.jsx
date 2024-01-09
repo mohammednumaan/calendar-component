@@ -14,14 +14,14 @@ const CustomButton = ({isOpen, setIsOpen}) => {
     return (
         <>
             <IconButton id="filter-date" onClick={() => setIsOpen(!isOpen)}>
-                <CalendarMonth sx={{color : '#1e2b37'}} />
+                <CalendarMonth sx={{color : '#1976d2'}} />
             </IconButton>
         </>
     )
 }
 
 // date picker component (conditionally renders)
-export default function PickDate({ref, setNewTitle, setNewDate, currDate, screenSize}){
+export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate, screenSize}){
 
     // state to open and close the date picker
     const [isOpen, setIsOpen] = useState(false)
@@ -42,14 +42,11 @@ export default function PickDate({ref, setNewTitle, setNewDate, currDate, screen
                         slotProps={{textField : {isOpen, setIsOpen}}}
 
                         onChange={(newValue) => {
-                            ref.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(ref.current?.getApi().view.title)
+                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
+                            setNewTitle(calendarRef.current?.getApi().view.title)
                             setNewDate(newValue)
                         }}
                         value={currDate}
-                        sx={
-                            {width : '170px', border : '1px solid #2c3e50', borderRadius : '4px', color : '#1976d2', outline: 'none'}
-                        }
                     />
                 </LocalizationProvider>
             ) : (
@@ -63,13 +60,13 @@ export default function PickDate({ref, setNewTitle, setNewDate, currDate, screen
                         slotProps={{textField : {size : 'small'}}}
 
                         onChange={(newValue) => {
-                            ref.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(ref.current?.getApi().view.title)
+                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
+                            setNewTitle(calendarRef.current?.getApi().view.title)
                             setNewDate(newValue)
                         }}
                         value={currDate}
                         sx={
-                            {width : '170px', border : '1px solid #2c3e50', borderRadius : '4px', color : '#1976d2', outline: 'none'}
+                            {ml : '10px' ,width : '190px', outline : '#1E90FF solid 1px', borderRadius : '4px'}
                         }
                     />
                 </LocalizationProvider>
@@ -83,7 +80,7 @@ export default function PickDate({ref, setNewTitle, setNewDate, currDate, screen
 // props types validation
 PickDate.propTypes = {
     screenSize : PropTypes.number,
-    ref : PropTypes.object,
+    calendarRef : PropTypes.object,
     currDate : PropTypes.object,
     setNewDate : PropTypes.func,
     setNewTitle : PropTypes.func,

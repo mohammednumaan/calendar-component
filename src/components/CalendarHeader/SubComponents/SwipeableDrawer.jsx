@@ -1,46 +1,54 @@
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from "@mui/material";
+// imports
 import { Fragment, useEffect, useState } from "react";
-import { Global } from '@emotion/react';
-import { styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { grey } from '@mui/material/colors';
-import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from "@mui/material";
 import Typography from '@mui/material/Typography';
-import moment from "moment/moment";
+import Box from '@mui/material/Box';
 import { EventSharp, } from "@mui/icons-material";
 
+import { styled } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Global } from '@emotion/react';
 
-  
+import moment from "moment/moment";
+
+// mui's styling for components
 const StyledBox = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
-  }));
+  backgroundColor: theme.palette.mode === 'light' ? '#fff' : grey[800],
+}));
   
 const Puller = styled(Box)(({ theme }) => ({
-    width: 30,
-    height: 6,
-    backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
-    borderRadius: 3,
-    position: 'absolute',
-    top: 8,
-    left: 'calc(50% - 15px)',
-  }));
+  width: 30,
+  height: 6,
+  backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+  left: 'calc(50% - 15px)',
+}));
 
+// swipe area width
 const drawerBleeding = 56;
 
+// swipeable drawer component
+export default function SwipeableEdgeDrawer({calendarRef}) {
 
-  
-export default function SwipeableEdgeDrawer({window, calendarRef}) {
-    //{'title' : 'Test Event', 'start' : 'Jan 08 2024'}]
+    // states to set today's events and open/close the drawer
     const [events, setEvents] = useState([]);
     const [open, setOpen] = useState(false);
-
-    const toggleDrawer = (newOpen) => () => {
-      setOpen(newOpen);
+    
+    // function to open or close the drawer
+    const toggleDrawer = (isOpen) => () => {
+      setOpen(isOpen);
     };
 
+    // a simple useffect to get the events from the calendar api and update the events state if events has changed
     useEffect(() => {
         const calApi = calendarRef.current?.getApi();
-        
+
+        // a small timeout to get the events from the api (does not work if u remove setTimeout), the getEvents() method is async
         setTimeout(() => {
           const todayEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
           if (JSON.stringify(todayEvents) === JSON.stringify(events)) return;
@@ -49,12 +57,10 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
         
     },[calendarRef, events])
   
-    const container = window !== undefined ? () => window().document.body : undefined;
   
     return (
       <>
         <CssBaseline />
-
         <Global
           styles={{
             '.MuiDrawer-root > .MuiDrawer-paperAnchorBottom ': {
@@ -65,7 +71,7 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
         />
 
         <SwipeableDrawer
-          container={container}
+          container={document.body}
           anchor="bottom"
           open={open}
           onClose={toggleDrawer(false)}
@@ -101,9 +107,11 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
               height: '100%',
               overflow: 'auto',
             }}
-          >
+          > 
+            
             <List>
               {events.length > 0 ? events.map((event) => (
+
                   <Fragment key={event.id}>
                     <ListItem>
                       <ListItemButton>
@@ -112,17 +120,19 @@ export default function SwipeableEdgeDrawer({window, calendarRef}) {
                         </ListItemIcon>
                         <ListItemText primary={event.title} secondary={moment(event.start).format('MMMM Do YYYY')} />
                       </ListItemButton>
-                      
                     </ListItem>   
                   </Fragment>
-                )) :
-                (
-                  <h4 id="no-events-msg">You Have No Events Today : (</h4>
-                )
+
+                )) : ( <h4 id="no-events-msg">You Have No Events Today : (</h4>)
               }
-              </List>
+            </List>
           </StyledBox>
         </SwipeableDrawer>
       </>
     );
+}
+
+// props types validation
+SwipeableEdgeDrawer.propTypes = {
+  calendarRef : PropTypes.object,
 }

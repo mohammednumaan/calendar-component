@@ -60,25 +60,42 @@ export default function Calendar(){
 
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
+
+        
         onSwipedLeft : () => {
-            setAnimate(false)
-            setTimeout(() => {
-                setAnimate(true)
-                calendarRef.current?.getApi().next()
-                setTitle(calendarRef.current?.getApi().view.title)
-                setDate(moment(calendarRef.current?.getApi().getDate()))
+            
+            calendarRef.current?.getApi().next()
+            setTitle(calendarRef.current?.getApi().view.title)
+            setDate(moment(calendarRef.current?.getApi().getDate()))
+
+            // NOTE : IGNORE THIS PIECE OF CODE FOR NOW, WAS TESTING SOME STUFF
+            //setAnimate(false)
+
+            // setTimeout(() => {
+            //     setAnimate(true)
+            //     const calApi = calendarRef.current?.getApi()
+            //     calApi.scrollToTime(calApi.next())
+            //     setTitle(calendarRef.current?.getApi().view.title)
+            //     setDate(moment(calendarRef.current?.getApi().getDate()))
                 
-            }, 800)    
+            // }, 800)    
         },
         onSwipedRight : () => {
-            setAnimate(false)
-            setTimeout(() => {
-                setAnimate(true)
-                calendarRef.current?.getApi().prev()
-                setTitle(calendarRef.current?.getApi().view.title)
-                setDate(moment(calendarRef.current?.getApi().getDate()))
+
+            calendarRef.current?.getApi().prev()
+            setTitle(calendarRef.current?.getApi().view.title)
+            setDate(moment(calendarRef.current?.getApi().getDate()))
+
+            // NOTE : IGNORE THIS PIECE OF CODE FOR NOW, WAS TESTING SOME STUFF
+            // setAnimate(false)
+
+            // setTimeout(() => {
+            //     setAnimate(true)
+            //     calendarRef.current?.getApi().prev()
+            //     setTitle(calendarRef.current?.getApi().view.title)
+            //     setDate(moment(calendarRef.current?.getApi().getDate()))
                 
-            }, 800) 
+            // }, 800) 
     
         },
 
@@ -88,11 +105,20 @@ export default function Calendar(){
 
     return (
         <>  
-            <CalendarHeader screenSize={width} title={title} calendarRef={calendarRef} currDate={date} setNewDate={setDate} setNewTitle={setTitle} />
+            <CalendarHeader 
+                screenSize={width} 
+                title={title}  
+                currDate={date} 
+                setNewDate={setDate} 
+                setNewTitle={setTitle} 
+                ref={calendarRef} 
+            />
+
             <div {...handlers} >
-                <Fade in={animate} timeout={930} easing={{easeInOut: 'cubic-bezier(0.445, 0.05, 0.55, 0.95)'}} appear={false}>
+                {/* <Fade in={animate} timeout={930} easing={{easeInOut: 'cubic-bezier(0.445, 0.05, 0.55, 0.95)'}} appear={false}> */}
                     <div>
                         <FullCalendar
+
                             // initial calendar setup
                             ref={calendarRef}
                             plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
@@ -101,13 +127,13 @@ export default function Calendar(){
                             contentHeight={width <= 1100 ? '80vh' :'80vh'}
                             dayHeaderFormat={{weekday : 'short'}}
                             headerToolbar={false}
-                            
+
                             // events
                             events={userEvents}
                         >
                         </FullCalendar>
                     </div>
-                </Fade>
+                {/* </Fade> */}
             </div>   
             {width <= 1100 && <SwipeDrawer  calendarRef={calendarRef}  />}
         </>

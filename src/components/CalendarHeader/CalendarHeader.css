@@ -1,7 +1,6 @@
 /* ROOT */
-
 :root{
-    --fc-today-bg-color: #9bddff;
+    --fc-today-bg-color: #E1EBEE;
 }
 
 /* HEADER CONTAINER AND ITS ELEMENT'S STYLING */
@@ -12,9 +11,6 @@
     align-items: center;
 
     padding: 10px;
-    margin-bottom: 20px;
-
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     
 }
 
@@ -23,21 +19,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    
 }
 
+
+
 .calendar-title{
+    font-weight: 400;
     margin-right: 100px;
 }
 
-#next:hover,
-#prev:hover,
-#today:hover,
-#month:hover,
-#week:hover,
-#day:hover,
-#events:hover{
-    background-color: #1e2b37;
+hr{ 
+
+    margin-top: -20px;
+    margin-left: 4px;
+    width: 80px;
+    border: 2px solid #1E90FF;
+    border-radius: 10px;
+}
+
+
+#month:focus,
+#week:focus,
+#day:focus,
+#events:focus{
+    color: white;
+    background-color: #1E90FF;
+}
+
+.sidebar-header{
+    text-align: center;
+    background-color:#1976d2;
+    padding: 5px;
+    color: white;
 }
 
 
@@ -53,12 +67,12 @@
     font-weight: 600;
     font-size: 0.7rem;
     font-family: sans-serif;
-    background-color:#0F9D58;
+    background-color:#0CAFFF;
     transition: background-color 0.5s ease-in-out;
 }
 
 .fc .fc-event-main .fc-event-title:hover{
-    background-color: #40826d;
+    background-color: #1F75FE;
 }
 
 #no-events-msg{
