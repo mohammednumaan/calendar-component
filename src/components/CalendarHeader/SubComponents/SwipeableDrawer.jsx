@@ -1,5 +1,5 @@
 // imports
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import PropTypes from 'prop-types';
 
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer } from "@mui/material";
@@ -33,33 +33,17 @@ const Puller = styled(Box)(({ theme }) => ({
 const drawerBleeding = 56;
 
 // swipeable drawer component
-export default function SwipeableEdgeDrawer({calendarRef}) {
+export default function SwipeableEdgeDrawer({todayEvents}) {
 
     // states to set today's events and open/close the drawer
-    const [events, setEvents] = useState([]);
+    // const [events, setEvents] = useState([]);
     const [open, setOpen] = useState(false);
     
     // function to open or close the drawer
     const toggleDrawer = (isOpen) => () => {
       setOpen(isOpen);
     };
-
-    // a simple useffect to get the events from the calendar api and update the events state if events has changed
-    useEffect(() => {
-        const calApi = calendarRef.current?.getApi();
-
-
-        // a small timeout to get the events from the api (does not work if u remove setTimeout), the getEvents() method is async
-        setTimeout(() => {
-          const todayEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
-          if (JSON.stringify(todayEvents) === JSON.stringify(events)) return;
-          setEvents([...todayEvents])
-          console.log('CHANGED')
-        }, 40)
-        
-    },[calendarRef, events])
-  
-  
+    
     return (
       <>
         <CssBaseline />
@@ -98,7 +82,7 @@ export default function SwipeableEdgeDrawer({calendarRef}) {
             }}
           >
             <Puller />
-            <Typography sx={{ p: 2, color: 'text.secondary' }}>{`Your Events For Today (${events.length})`}</Typography>
+            <Typography sx={{ p: 2, color: 'text.secondary' }}>{`Your Events For Today (${todayEvents.length})`}</Typography>
 
           </StyledBox>
 
@@ -112,7 +96,7 @@ export default function SwipeableEdgeDrawer({calendarRef}) {
           > 
             
             <List>
-              {events.length > 0 ? events.map((event) => (
+              {todayEvents.length > 0 ? todayEvents.map((event) => (
 
                   <Fragment key={event.id}>
                     <ListItem>
@@ -136,5 +120,5 @@ export default function SwipeableEdgeDrawer({calendarRef}) {
 
 // props types validation
 SwipeableEdgeDrawer.propTypes = {
-  calendarRef : PropTypes.object,
+  todayEvents : PropTypes.array,
 }

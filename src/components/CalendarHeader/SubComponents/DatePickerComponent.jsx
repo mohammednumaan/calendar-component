@@ -21,14 +21,13 @@ const CustomButton = ({isOpen, setIsOpen}) => {
 }
 
 // date picker component (conditionally renders)
-export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate, screenSize}){
+export default function PickDate({screenSize, currDate, handleCustomDate}){
 
     // state to open and close the date picker
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <>  
-
             {screenSize < 1100 ? (
                 <LocalizationProvider dateAdapter={AdapterMoment}>  
                     <DatePicker
@@ -41,11 +40,7 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
                         slots={{textField : CustomButton}}
                         slotProps={{textField : {isOpen, setIsOpen}}}
 
-                        onChange={(newValue) => {
-                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(calendarRef.current?.getApi().view.title)
-                            setNewDate(newValue)
-                        }}
+                        onChange={(newValue) => handleCustomDate(newValue)}
                         value={currDate}
                     />
                 </LocalizationProvider>
@@ -59,18 +54,14 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
                         // renders/mounts the default textfield component for devices > 1100px (width)
                         slotProps={{textField : {size : 'small'}}}
 
-                        onChange={(newValue) => {
-                            calendarRef.current?.getApi().gotoDate(newValue?.toDate())
-                            setNewTitle(calendarRef.current?.getApi().view.title)
-                            setNewDate(newValue)
-                        }}
+                        onChange={(newValue) => handleCustomDate(newValue)}
                         value={currDate}
+
                         sx={
                             {ml : '10px' ,width : '190px', outline : '#1E90FF solid 1px', borderRadius : '4px'}
                         }
                     />
                 </LocalizationProvider>
-
             )}
         </>  
     )
@@ -80,10 +71,9 @@ export default function PickDate({calendarRef, setNewTitle, setNewDate, currDate
 // props types validation
 PickDate.propTypes = {
     screenSize : PropTypes.number,
-    calendarRef : PropTypes.object,
     currDate : PropTypes.object,
-    setNewDate : PropTypes.func,
-    setNewTitle : PropTypes.func,
+    handleCustomDate : PropTypes.func,
+
 }
 
 CustomButton.propTypes = {

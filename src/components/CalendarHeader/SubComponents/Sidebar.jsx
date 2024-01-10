@@ -6,17 +6,8 @@ import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { CalendarViewDay, CalendarViewMonth, CalendarViewWeek, Menu, ViewList } from "@mui/icons-material";
 
-// handles any view change upon clicking the listed options (defined only once)
-const handleViewChange = (calendarRef, view, newTitle) => {
-    const calApi = calendarRef.current?.getApi()
-    if (calApi){
-        calApi.changeView(view)
-        newTitle(calApi.view.title)
-    }
-}
-
 // sidebar component
-export default function Sidebar({calendarRef, newTitle}){
+export default function Sidebar({handleView}){
 
     // a state to open or close the sidebar
     const [isOpen, setIsOpen] = useState(false)
@@ -40,7 +31,7 @@ export default function Sidebar({calendarRef, newTitle}){
 
 
                     <List>
-                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'dayGridMonth', newTitle)}>
+                        <ListItemButton onClick={() => handleView('dayGridMonth')}>
                             <ListItemIcon>
                                 <CalendarViewMonth />
                             </ListItemIcon>
@@ -48,7 +39,7 @@ export default function Sidebar({calendarRef, newTitle}){
                         </ListItemButton>
                         <Divider />
                         
-                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'dayGridWeek', newTitle)}>
+                        <ListItemButton onClick={() => handleView('dayGridWeek')}>
                             <ListItemIcon>
                                 <CalendarViewWeek />
                             </ListItemIcon>
@@ -56,7 +47,7 @@ export default function Sidebar({calendarRef, newTitle}){
                         </ListItemButton>
                         <Divider />
 
-                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'timeGridDay', newTitle)}>
+                        <ListItemButton onClick={() => handleView('timeGridDay')}>
                             <ListItemIcon>
                                 <CalendarViewDay />
                             </ListItemIcon>
@@ -64,7 +55,7 @@ export default function Sidebar({calendarRef, newTitle}){
                         </ListItemButton>
                         <Divider />
 
-                        <ListItemButton onClick={() => handleViewChange(calendarRef, 'listMonth', newTitle)}>
+                        <ListItemButton onClick={() => handleView('listMonth')}>
                             <ListItemIcon>
                                 <ViewList />
                             </ListItemIcon>
@@ -80,6 +71,5 @@ export default function Sidebar({calendarRef, newTitle}){
 
 // props types validation
 Sidebar.propTypes = {
-    calendarRef : PropTypes.object,
-    newTitle : PropTypes.func,
+    handleView : PropTypes.func,
 }

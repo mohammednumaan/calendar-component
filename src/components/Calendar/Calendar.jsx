@@ -19,9 +19,12 @@ import SwipeableEdgeDrawer from '../CalendarHeader/SubComponents/SwipeableDrawer
 // calendar component 
 export default function Calendar(){
 
-    // states 
+    // states and refs
     const calendarRef = useRef(null);
+
     const [userEvents, setUserEvents] = useState(null);
+    const [todayEvents, setTodayEvents] = useState([])
+
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
     const [title, setTitle] = useState('')
     const [width, setWidth] = useState(window.innerWidth);
@@ -32,15 +35,36 @@ export default function Calendar(){
         (async function getEvents() {
             fetchEvents(setUserEvents)
         })();
+
+        // clean-up function code, like disconnecting from a db  to prevent memory leaks and such.
+        // eg : return () => //code
         
     },[])
+
+    // get today events for displaying in the drawer in mobile devices
+    useEffect(() => {
+
+        const calApi = calendarRef.current?.getApi();
+
+        if (calApi){
+            
+           const timeoutID = setTimeout(() => {
+                const filteredEvents = calApi?.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
+                if (JSON.stringify(filteredEvents) === JSON.stringify(todayEvents)) return;
+                setTodayEvents([...filteredEvents])
+            },200)
+
+            return () => clearTimeout(timeoutID)
+        }
+
+        
+    },[todayEvents])
 
     // tracks the widow size to change view on devices
     useEffect(() => {
         const handleWindowResize = () => {
             setWidth(window.innerWidth);
         };
-
         window.addEventListener('resize', handleWindowResize);
 
         // cleanup
@@ -58,15 +82,13 @@ export default function Calendar(){
 
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
-
+        
         onSwipedLeft : () => {
-            
             calendarRef.current?.getApi().next()
             setTitle(calendarRef.current.getApi().view.title)
             setDate(moment(calendarRef.current?.getApi().getDate()))
         },
         onSwipedRight : () => {
-
             calendarRef.current?.getApi().prev()
             setTitle(calendarRef.current.getApi().view.title)
             setDate(moment(calendarRef.current.getApi().getDate()))
@@ -75,10 +97,47 @@ export default function Calendar(){
         swipeDuration : 500,
     });
 
+    // calendar api's methods
+
+    // handles any kind of date change
+    const handleDateChange = (direction) => {
+        const calApi = calendarRef.current.getApi();
+        if (calApi) {
+            (direction === 'prev') ? calApi.prev() : 
+            (direction === 'next') ? calApi.next() :
+            (direction === 'today') ? calApi.today() : ''
+        }
+
+        setDate(moment(calApi.getDate()))
+        setTitle(calApi.view.title)
+
+    }
+
+    // handles any kind of view change
+    const handleViewChange = (view) => {
+        const calApi = calendarRef.current?.getApi()
+        if (calApi){
+            calApi.changeView(view)
+            setTitle(calApi.view.title)
+        }
+    }
+
+    // handles custom date from date-picker component
+    const handleCustomDate = (newDate) => {
+        const calApi = calendarRef.current?.getApi()
+        if (calApi){
+            calApi.gotoDate(newDate?.toDate())
+            setTitle(calendarRef.current?.getApi().view.title)
+            setDate(newDate)
+        }
+    }
+
 
     return (
         <>  
-            <CalendarHeader screenSize={width} title={title}  currDate={date} setNewDate={setDate} setNewTitle={setTitle} ref={calendarRef} />
+            <CalendarHeader screenSize={width} currDate={date} handleDate={handleDateChange} handleView={handleViewChange} handleCustomDate={handleCustomDate}>
+                <h1 className="calendar-title">{title}</h1>
+            </CalendarHeader>
 
             <div {...handlers} >
                 <FullCalendar
@@ -88,7 +147,7 @@ export default function Calendar(){
                     plugins={[daygridPlugin, timegridPlugin, multiMonthPlugin, interactionPlugin, listPlugin]}
                     initialView={'dayGridMonth'}
                     aspectRatio={width <= 1100 ? 2.8 : 2.8}
-                    contentHeight={width <= 1100 ? '80vh' :'80vh'}
+                    contentHeight={width <= 1100 ? '78vh' :'80vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
 
@@ -98,7 +157,7 @@ export default function Calendar(){
                 >
                 </FullCalendar>
             </div>   
-            {width <= 1100 && <SwipeableEdgeDrawer calendarRef={calendarRef}  />}
+            {width <= 1100 && <SwipeableEdgeDrawer todayEvents={todayEvents}  />}
         </>
     )
 }
