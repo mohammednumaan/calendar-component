@@ -34,7 +34,7 @@ Events can be fetched/generated from any of these sources :
 
 **Today's Events**
 
-On Mobile/Tab Devices, a swipeable drawer opens to display the user's events schdeule for today.
+On Mobile/Tab Devices, a swipeable drawer opens to display the user's events schedule for today.
 
 **Event Object Format (Basic)**
 
