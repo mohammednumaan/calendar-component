@@ -29,7 +29,7 @@ Events can be fetched/generated from any of these sources :
 
 **Event Interaction**
 
-- On clicking a particular event, it will re-direct the user to that event's page. ('react.dev' is set a sample link for now).
+- On clicking a particular event, it will re-direct the user to that event's page. ('react.dev' is set as a sample link for now).
 - On hovering over the event, a small tooltip/popovers gets shown to display basic info like description of the event. (currently working on this)
 
 **Today's Events**
