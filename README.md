@@ -39,11 +39,13 @@ On Mobile/Tab Devices, a swipeable drawer opens to display the user's events sch
 **Event Object Format (Basic)**
 
 {   
+
     id : <uniqueId>
     title : <eventTitle>,
     description : <eventDescription>,
     start : 'YYYY-MM-DD',
     end : 'YYYY-MM-DD',
+    
 }
 
 
