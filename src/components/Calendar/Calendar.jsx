@@ -22,7 +22,7 @@ export default function Calendar(){
     // states and refs
     const calendarRef = useRef(null);
 
-    const [userEvents, setUserEvents] = useState(null);
+    const [userEvents, setUserEvents] = useState([]);
     const [todayEvents, setTodayEvents] = useState([])
 
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
@@ -45,14 +45,13 @@ export default function Calendar(){
     useEffect(() => {
 
         const calApi = calendarRef.current?.getApi();
-
         if (calApi){
-            
+
            const timeoutID = setTimeout(() => {
-                const filteredEvents = calApi?.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
+                const filteredEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
                 if (JSON.stringify(filteredEvents) === JSON.stringify(todayEvents)) return;
                 setTodayEvents([...filteredEvents])
-            },200)
+            },200);
 
             return () => clearTimeout(timeoutID)
         }
