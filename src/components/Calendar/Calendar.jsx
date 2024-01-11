@@ -23,7 +23,7 @@ export default function Calendar(){
     const calendarRef = useRef(null);
 
     const [userEvents, setUserEvents] = useState([]);
-    const [todayEvents, setTodayEvents] = useState([])
+    const [todayEvents, setTodayEvents] = useState([]);
 
     const [date, setDate] = useState(moment(calendarRef.current?.getApi().getDate()))
     const [title, setTitle] = useState('')
@@ -32,44 +32,41 @@ export default function Calendar(){
 
     // get events data on initial render by fetching data from the database
     useEffect(() => {
+        
         (async function getEvents() {
-            fetchEvents(setUserEvents)
+            const data = await fetchEvents()
+            setUserEvents([...data])   
         })();
-
+        
         // clean-up function code, like disconnecting from a db  to prevent memory leaks and such.
         // eg : return () => //code
         
     },[])
+    
 
     // get today events for displaying in the drawer in mobile devices
     useEffect(() => {
-
         const calApi = calendarRef.current?.getApi();
-        if (calApi){
+        const filteredEvents = [...userEvents.filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))]
+        setTodayEvents([...filteredEvents])
+              
+    },[userEvents])
 
-           const timeoutID = setTimeout(() => {
-                const filteredEvents = calApi.getEvents().filter(evt => moment(calApi.getDate()).format('MMMM Do YYYY') === moment(evt.start).format('MMMM Do YYYY'))
-                if (JSON.stringify(filteredEvents) === JSON.stringify(todayEvents)) return;
-                setTodayEvents([...filteredEvents])
-            },200);
-
-            return () => clearTimeout(timeoutID)
-        }
-
-        
-    },[todayEvents])
 
     // tracks the widow size to change view on devices
     useEffect(() => {
+        
         const handleWindowResize = () => {
             setWidth(window.innerWidth);
         };
         window.addEventListener('resize', handleWindowResize);
 
+
         // cleanup
         return () => {
           window.removeEventListener('resize', handleWindowResize);
         };
+
     }, [])
 
 
@@ -78,6 +75,7 @@ export default function Calendar(){
         const calTitle = calendarRef.current.getApi().view.title
         setTitle(calTitle)
     },[title])
+
 
     // enables users to swipe in mobile devices
     const handlers = useSwipeable({
@@ -149,6 +147,7 @@ export default function Calendar(){
                     contentHeight={width <= 1100 ? '78vh' :'80vh'}
                     dayHeaderFormat={{weekday : 'short'}}
                     headerToolbar={false}
+                    progressiveEventRendering={true}
 
                     // events
                     events={userEvents}

@@ -5,11 +5,11 @@ import events from '/src/sampleEvents.json'
 // fetching data from database in json format 
 // the fetched data must be an array of objects
 
-const fetchEvents = async (callback) => {
+const fetchEvents = async () => {
 
     // await and fetching data code goes here, along with error handling (to check if response is 'ok')
     const data = events;
-    callback(data)
+    return data;
 
 }
 
