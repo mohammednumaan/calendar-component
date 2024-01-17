@@ -43,7 +43,6 @@ export default function Calendar(){
         
     },[])
     
-
     // get today events for displaying in the drawer in mobile devices
     useEffect(() => {
         const calApi = calendarRef.current?.getApi();
